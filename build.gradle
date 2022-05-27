@@ -41,25 +41,6 @@ dependencies {
     testCompile "org.codehaus.groovy:groovy-all:$groovyAllVersion"
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifact tasks.packageSource
-            artifact tasks.packageJavadoc
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username project.hasProperty("bintrayUsername") ? bintrayUsername : null
-                password project.hasProperty("bintrayPassword") ? bintrayPassword : null
-            }
-            url "https://api.bintray.com/maven/smartcat-labs/maven/ranger/;publish=1"
-        }
-    }
-}
-
 checkstyle {
     configFile = file("checkstyle.xml")
     configProperties = properties(file("checkstyle.properties"))
@@ -87,6 +68,24 @@ def properties(file) {
     props
 }
 
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = "3.5"
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact tasks.packageSource
+            artifact tasks.packageJavadoc
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username project.hasProperty("bintrayUsername") ? bintrayUsername : null
+                password project.hasProperty("bintrayPassword") ? bintrayPassword : null
+            }
+            url "https://api.bintray.com/maven/smartcat-labs/maven/ranger/;publish=1"
+        }
+    }
 }
