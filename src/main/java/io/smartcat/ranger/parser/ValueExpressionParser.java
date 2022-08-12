@@ -22,6 +22,7 @@ import io.smartcat.ranger.core.ListValue;
 import io.smartcat.ranger.core.NowDateValue;
 import io.smartcat.ranger.core.NowLocalDateTimeValue;
 import io.smartcat.ranger.core.NowLocalDateValue;
+import io.smartcat.ranger.core.NowNanosValue;
 import io.smartcat.ranger.core.NowValue;
 import io.smartcat.ranger.core.NullValue;
 import io.smartcat.ranger.core.RandomContentStringValue;
@@ -761,6 +762,15 @@ public class ValueExpressionParser extends BaseParser<Object> {
     }
 
     /**
+     * Now definition.
+     *
+     * @return NowNanos definition rule.
+     */    
+    public Rule nowNanos() {
+        return Sequence(function("nowNanos"), push(new NowNanosValue()));
+    }
+
+    /**
      * Now date definition.
      *
      * @return Now date definition rule.
@@ -851,7 +861,7 @@ public class ValueExpressionParser extends BaseParser<Object> {
     public Rule generator() {
         return FirstOf(discreteValue(), rangeValue(), uuidValue(), circularValue(), circularRangeValue(), listValue(),
                 emptyListValue(), emptyMapValue(), randomLengthListValue(), weightedValue(), exactWeightedValue(),
-                randomContentStringValue(), now(), nowDate(), nowLocalDate(), nowLocalDateTime(), additionValue(),
+                randomContentStringValue(), now(), nowNanos(), nowDate(), nowLocalDate(), nowLocalDateTime(), additionValue(),
                 subtractionValue(), multiplicationValue(), divisionValue(), csvReaderValue());
     }
 

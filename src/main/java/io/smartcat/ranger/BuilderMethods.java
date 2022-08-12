@@ -1,5 +1,6 @@
 package io.smartcat.ranger;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import io.smartcat.ranger.core.ListValue;
 import io.smartcat.ranger.core.NowDateValue;
 import io.smartcat.ranger.core.NowLocalDateTimeValue;
 import io.smartcat.ranger.core.NowLocalDateValue;
+import io.smartcat.ranger.core.NowNanosValue;
 import io.smartcat.ranger.core.NowValue;
 import io.smartcat.ranger.core.RandomContentStringValue;
 import io.smartcat.ranger.core.RandomLengthListValue;
@@ -471,6 +473,15 @@ public class BuilderMethods {
      */
     public static ObjectGenerator<Long> now() {
         return wrap(new NowValue());
+    }
+
+    /**
+     * Creates an instance of {@link ObjectGenerator} which generates current time in milliseconds.
+     *
+     * @return An instance of {@link ObjectGenerator} which generates current time in milliseconds.
+     */
+    public static ObjectGenerator<BigInteger> nowNanos() {
+        return wrap(new NowNanosValue());
     }
 
     /**
